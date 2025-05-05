@@ -7,7 +7,7 @@ const CTPSSection: React.FC = () => {
     {
       id: 1,
       name: 'Calendar',
-      description: 'Marked humanity's ability to track cycles, organize societies, and cultivate a shared memory.',
+      description: "Marked humanity's ability to track cycles, organize societies, and cultivate a shared memory.",
       link: '#'
     },
     {

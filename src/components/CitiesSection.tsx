@@ -10,7 +10,7 @@ const CitiesSection: React.FC = () => {
     },
     {
       name: "Singapore",
-      description: ""City in Nature" with green buildings, integrated transport, and harmonious urban-environmental design."
+      description: '"City in Nature" with green buildings, integrated transport, and harmonious urban-environmental design.'
     },
     {
       name: "Tokyo, Japan",
