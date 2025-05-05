@@ -3,24 +3,36 @@ import React, { useEffect, useRef } from 'react';
 import Navbar from '../components/Navbar';
 import HeroSection from '../components/HeroSection';
 import Footer from '../components/Footer';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, useAnimation, useScroll, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, CheckCircle, Shield, Brain, Zap, Leaf } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 
 const Index: React.FC = () => {
+  const controls = useAnimation();
+  const { scrollY } = useScroll();
+  
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+    controls.start("visible");
+  }, [controls]);
 
   const mainCircleRef = useRef(null);
   const vsRef = useRef(null);
+  const eticEmicRef = useRef(null);
+  
   const mainCircleInView = useInView(mainCircleRef, { once: true });
   const vsInView = useInView(vsRef, { once: true });
+  const eticEmicInView = useInView(eticEmicRef, { once: true, amount: 0.3 });
+
+  // Parallax effects
+  const y1 = useTransform(scrollY, [0, 1000], [0, 300]);
+  const y2 = useTransform(scrollY, [0, 1000], [0, -200]);
+  const opacity1 = useTransform(scrollY, [0, 300], [1, 0.6]);
 
   const pageTransition = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.5 } },
+    visible: { opacity: 1, transition: { duration: 0.8, ease: "easeOut" } },
     exit: { opacity: 0, transition: { duration: 0.5 } }
   };
 
@@ -45,9 +57,45 @@ const Index: React.FC = () => {
     }
   };
 
+  const floatingVariants = {
+    float: {
+      y: [0, -15, 0],
+      transition: {
+        duration: 5,
+        repeat: Infinity,
+        repeatType: "mirror",
+        ease: "easeInOut"
+      }
+    }
+  };
+
+  const pulseVariants = {
+    pulse: {
+      scale: [1, 1.05, 1],
+      opacity: [0.7, 1, 0.7],
+      transition: {
+        duration: 3,
+        repeat: Infinity,
+        repeatType: "mirror",
+        ease: "easeInOut"
+      }
+    }
+  };
+
+  const rotateVariants = {
+    rotate: {
+      rotate: 360,
+      transition: {
+        duration: 40,
+        repeat: Infinity,
+        ease: "linear"
+      }
+    }
+  };
+
   return (
     <motion.div 
-      className="min-h-screen bg-white"
+      className="min-h-screen bg-white overflow-hidden"
       initial="hidden"
       animate="visible"
       exit="exit"
@@ -105,13 +153,22 @@ const Index: React.FC = () => {
               >
                 <h3 className="text-xl sm:text-2xl md:text-3xl font-bold italic mb-4 md:mb-6 text-center">John McCarthy</h3>
                 <p className="italic mb-4 md:mb-6 text-center text-sm sm:text-base">AI as a discovery</p>
-                <div className="w-[200px] h-[200px] sm:w-[250px] sm:h-[250px] md:w-[280px] md:h-[280px] rounded-full overflow-hidden relative shadow-lg">
+                <motion.div 
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                  className="w-[200px] h-[200px] sm:w-[250px] sm:h-[250px] md:w-[280px] md:h-[280px] rounded-full overflow-hidden relative shadow-lg bg-gradient-to-br from-blue-50 to-blue-100"
+                >
                   <img
-                    src="/placeholder.svg"
+                    src="/johnmcharty.jpeg"
                     alt="John McCarthy"
                     className="object-cover w-full h-full object-center"
                   />
-                </div>
+                  <motion.div 
+                    className="absolute inset-0 bg-blue-500/10"
+                    animate={{ opacity: [0.1, 0.2, 0.1] }}
+                    transition={{ duration: 3, repeat: Infinity }}
+                  />
+                </motion.div>
               </motion.div>
 
               {/* Middle - VS globe */}
@@ -122,9 +179,19 @@ const Index: React.FC = () => {
                 transition={{ duration: 0.6, ease: "easeOut" }}
                 className="relative md:absolute md:transform md:-translate-x-1/2 md:translate-y-0 z-30 my-8 md:my-0"
               >
-                <div className="w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] rounded-full flex items-center justify-center bg-everblue text-white shadow-lg">
+                <motion.div 
+                  className="w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] rounded-full flex items-center justify-center bg-everblue text-white shadow-lg"
+                  animate={{ 
+                    boxShadow: [
+                      "0 0 0 rgba(0, 123, 255, 0.4)",
+                      "0 0 20px rgba(0, 123, 255, 0.6)",
+                      "0 0 0 rgba(0, 123, 255, 0.4)"
+                    ]
+                  }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
                   <span className="text-xl sm:text-2xl font-bold">VS</span>
-                </div>
+                </motion.div>
               </motion.div>
 
               {/* Right side - Wiener */}
@@ -136,52 +203,123 @@ const Index: React.FC = () => {
               >
                 <h3 className="text-xl sm:text-2xl md:text-3xl font-bold italic mb-4 md:mb-6 text-center">Norbert Wiener</h3>
                 <p className="italic mb-4 md:mb-6 text-center text-sm sm:text-base">AI as a product of Behavioral Science research</p>
-                <div className="w-[200px] h-[200px] sm:w-[250px] sm:h-[250px] md:w-[280px] md:h-[280px] rounded-full overflow-hidden shadow-lg">
+                <motion.div 
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                  className="w-[200px] h-[200px] sm:w-[250px] sm:h-[250px] md:w-[280px] md:h-[280px] rounded-full overflow-hidden shadow-lg bg-gradient-to-br from-indigo-50 to-indigo-100"
+                >
                   <img
-                    src="/placeholder.svg"
+                    src="/nobert.jpeg"
                     alt="Norbert Wiener"
                     className="object-cover w-full h-full"
                   />
-                </div>
+                  <motion.div 
+                    className="absolute inset-0 bg-indigo-500/10"
+                    animate={{ opacity: [0.1, 0.2, 0.1] }}
+                    transition={{ duration: 3, repeat: Infinity, delay: 0.5 }}
+                  />
+                </motion.div>
               </motion.div>
             </div>
           </div>
 
           {/* Etic vs Emic Approaches */}
-          <div className="max-w-6xl mx-auto mt-16">
+          <div ref={eticEmicRef} className="max-w-6xl mx-auto mt-16">
             <h3 className="text-2xl font-bold mb-8 text-center">Etic vs Emic Approaches to Behavioral Science</h3>
             
             <div className="grid md:grid-cols-2 gap-8 mb-12">
               <motion.div 
-                className="bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-xl shadow-md"
+                className="bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-xl shadow-md relative overflow-hidden"
                 initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                animate={eticEmicInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.6 }}
-                viewport={{ once: true }}
               >
-                <h4 className="text-xl font-bold mb-4">Etic Approach</h4>
-                <p className="text-gray-700 mb-4">
+                <motion.div 
+                  className="absolute -right-20 -top-20 w-40 h-40 bg-blue-200 rounded-full opacity-50"
+                  variants={pulseVariants}
+                  animate="pulse"
+                />
+                <motion.div 
+                  className="absolute -left-10 -bottom-10 w-20 h-20 bg-blue-300 rounded-full opacity-30"
+                  variants={floatingVariants}
+                  animate="float"
+                />
+                
+                <h4 className="text-xl font-bold mb-4 relative z-10">Etic Approach</h4>
+                <p className="text-gray-700 mb-4 relative z-10">
                   The Etic approach views human behavior from an outsider's perspective, analyzing patterns and behaviors across cultures using objective measurements and observations.
                 </p>
-                <p className="text-gray-700">
+                <p className="text-gray-700 relative z-10">
                   This approach leads to the development of AI systems that attempt to replicate human behavior through external observation and data collection, often missing the subtleties of human experience.
                 </p>
+                
+                <motion.div 
+                  className="absolute right-4 bottom-4 w-16 h-16 text-blue-300"
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                >
+                  <svg viewBox="0 0 200 200" className="w-full h-full">
+                    <path
+                      d="M100,20 C140,20 160,50 180,100 C160,150 140,180 100,180 C60,180 40,150 20,100 C40,50 60,20 100,20 Z"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1"
+                    />
+                  </svg>
+                </motion.div>
               </motion.div>
               
               <motion.div 
-                className="bg-gradient-to-br from-indigo-50 to-indigo-100 p-8 rounded-xl shadow-md"
+                className="bg-gradient-to-br from-indigo-50 to-indigo-100 p-8 rounded-xl shadow-md relative overflow-hidden"
                 initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6 }}
-                viewport={{ once: true }}
+                animate={eticEmicInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.2 }}
               >
-                <h4 className="text-xl font-bold mb-4">Emic Approach</h4>
-                <p className="text-gray-700 mb-4">
+                <motion.div 
+                  className="absolute -left-20 -top-20 w-40 h-40 bg-indigo-200 rounded-full opacity-50"
+                  variants={pulseVariants}
+                  animate="pulse"
+                />
+                <motion.div 
+                  className="absolute -right-10 -bottom-10 w-20 h-20 bg-indigo-300 rounded-full opacity-30"
+                  variants={floatingVariants}
+                  animate="float"
+                />
+                
+                <h4 className="text-xl font-bold mb-4 relative z-10">Emic Approach</h4>
+                <p className="text-gray-700 mb-4 relative z-10">
                   The Emic approach studies behavior from within the cultural context, focusing on the insider's perspective and the subjective experience of individuals.
                 </p>
-                <p className="text-gray-700">
+                <p className="text-gray-700 relative z-10">
                   This approach forms the foundation of Intelligence Amplification (IA), which seeks to enhance human cognition by understanding and working with our natural mental processes rather than replacing them.
                 </p>
+                
+                <motion.div 
+                  className="absolute right-4 bottom-4 w-16 h-16 text-indigo-300"
+                  animate={{ rotate: -360 }}
+                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                >
+                  <svg viewBox="0 0 200 200" className="w-full h-full">
+                    <path
+                      d="M100,20 C140,20 180,60 180,100 C180,140 140,180 100,180 C60,180 20,140 20,100 C20,60 60,20 100,20 Z"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1"
+                    />
+                    <path
+                      d="M100,40 C130,40 160,70 160,100 C160,130 130,160 100,160 C70,160 40,130 40,100 C40,70 70,40 100,40 Z"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1"
+                    />
+                    <path
+                      d="M100,60 C120,60 140,80 140,100 C140,120 120,140 100,140 C80,140 60,120 60,100 C60,80 80,60 100,60 Z"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1"
+                    />
+                  </svg>
+                </motion.div>
               </motion.div>
             </div>
           </div>
@@ -190,13 +328,22 @@ const Index: React.FC = () => {
 
       {/* Biometric Data Section */}
       <motion.section 
-        className="py-24 px-6 bg-gray-50"
+        className="py-24 px-6 bg-gray-50 relative overflow-hidden"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
       >
-        <div className="container mx-auto">
+        <motion.div 
+          className="absolute -top-40 -right-40 w-80 h-80 bg-everblue/5 rounded-full blur-3xl"
+          style={{ y: y1 }}
+        />
+        <motion.div 
+          className="absolute -bottom-20 -left-20 w-60 h-60 bg-everblue/5 rounded-full blur-3xl"
+          style={{ y: y2 }}
+        />
+        
+        <div className="container mx-auto relative z-10">
           <div className="mb-12 text-center">
             <h2 className="text-3xl font-bold mb-4">Why Behavioural Biometric Data Needs Protection</h2>
           </div>
@@ -244,13 +391,29 @@ const Index: React.FC = () => {
             </div>
             <div className="order-1 md:order-2 flex justify-center">
               <motion.div 
-                className="bg-white p-4 rounded-2xl shadow-xl overflow-hidden w-64 h-64 md:w-80 md:h-80 flex items-center justify-center"
+                className="bg-white p-8 rounded-2xl shadow-xl overflow-hidden w-64 h-64 md:w-80 md:h-80 flex items-center justify-center relative"
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
                 viewport={{ once: true }}
+                whileHover={{ scale: 1.05 }}
               >
-                <Shield className="h-32 w-32 md:h-40 md:w-40 text-everblue" />
+                <motion.div 
+                  className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-50 opacity-70"
+                  variants={pulseVariants}
+                  animate="pulse"
+                />
+                <Shield className="h-32 w-32 md:h-40 md:w-40 text-everblue relative z-10" />
+                <motion.div 
+                  className="absolute w-full h-full rounded-full border-2 border-everblue/20"
+                  variants={rotateVariants}
+                  animate="rotate"
+                />
+                <motion.div 
+                  className="absolute w-[120%] h-[120%] rounded-full border border-everblue/10"
+                  animate={{ rotate: -360 }}
+                  transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+                />
               </motion.div>
             </div>
           </div>
@@ -259,12 +422,17 @@ const Index: React.FC = () => {
 
       {/* Mind-Body Section */}
       <motion.section 
-        className="py-24 px-6"
+        className="py-24 px-6 relative overflow-hidden"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
       >
+        <motion.div 
+          className="absolute top-0 right-0 w-full h-full bg-gradient-to-b from-transparent to-gray-50/50 -z-10"
+          style={{ opacity: opacity1 }}
+        />
+        
         <div className="container mx-auto">
           <div className="mb-12 text-center">
             <h2 className="text-3xl font-bold mb-4">Mind-Body Synchronization</h2>
@@ -281,8 +449,17 @@ const Index: React.FC = () => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
                 viewport={{ once: true }}
+                whileHover={{ 
+                  scale: 1.05,
+                  boxShadow: "0 20px 30px rgba(0, 0, 0, 0.1)"
+                }}
               >
-                <Brain className="h-32 w-32 md:h-40 md:w-40 text-everblue" />
+                <motion.div 
+                  className="absolute inset-0 bg-gradient-to-br from-indigo-50 to-purple-50 opacity-70"
+                  variants={pulseVariants}
+                  animate="pulse"
+                />
+                <Brain className="h-32 w-32 md:h-40 md:w-40 text-everblue relative z-10" />
                 <motion.div 
                   className="absolute w-40 h-40 md:w-48 md:h-48 rounded-full border-2 border-everblue/30"
                   animate={{ rotate: 360 }}
@@ -293,6 +470,34 @@ const Index: React.FC = () => {
                   animate={{ rotate: -360 }}
                   transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
                 />
+                <motion.div 
+                  className="absolute w-60 h-60 md:w-72 md:h-72 rounded-full border border-everblue/10"
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+                />
+                
+                {/* Particle effects */}
+                {[...Array(10)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className="absolute w-3 h-3 rounded-full bg-everblue/30"
+                    initial={{ 
+                      x: (Math.random() - 0.5) * 150, 
+                      y: (Math.random() - 0.5) * 150,
+                      scale: Math.random() * 0.5 + 0.5
+                    }}
+                    animate={{ 
+                      x: [(Math.random() - 0.5) * 150, (Math.random() - 0.5) * 150],
+                      y: [(Math.random() - 0.5) * 150, (Math.random() - 0.5) * 150],
+                      opacity: [0.4, 0.8, 0.4]
+                    }}
+                    transition={{ 
+                      duration: Math.random() * 5 + 5,
+                      repeat: Infinity,
+                      repeatType: "reverse"
+                    }}
+                  />
+                ))}
               </motion.div>
             </div>
             <div>
@@ -347,33 +552,36 @@ const Index: React.FC = () => {
               IA offers a co-evolutionary model where humans and technology grow together, maintaining autonomy and resilience. Anchored in the 4th Cultural Time Perception Shift (4th CTPS), IA adapts to diverse needs, promoting a sustainable future that elevates human potential in alignment with nature.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Button asChild size="lg" className="rounded-md">
-                <Link to="/intelligence-amplification" className="flex items-center justify-center">
-                  Learn More About IA
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="rounded-md">
-                <Link to="/ctps" className="flex items-center justify-center">
-                  Explore the 4th CTPS
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Button asChild size="lg" className="rounded-md">
+                  <Link to="/intelligence-amplification" className="flex items-center justify-center">
+                    Learn More About IA
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Button asChild variant="outline" size="lg" className="rounded-md">
+                  <Link to="/ctps" className="flex items-center justify-center">
+                    Explore the 4th CTPS
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </motion.div>
             </div>
           </div>
           
-          {/* Background decorative elements */}
+          {/* Background decorative elements with advanced animations */}
           <div className="absolute top-20 left-10 w-20 h-20">
             <motion.div
-              animate={{ 
-                y: [0, 15, 0],
-                opacity: [0.3, 0.6, 0.3],
-              }}
-              transition={{ 
-                duration: 6, 
-                repeat: Infinity,
-                ease: "easeInOut" 
-              }}
+              variants={floatingVariants}
+              animate="float"
             >
               <Leaf className="text-everblue/40 h-full w-full" />
             </motion.div>
@@ -383,6 +591,7 @@ const Index: React.FC = () => {
             <motion.div
               animate={{ 
                 y: [0, -15, 0],
+                rotate: [0, 5, 0, -5, 0],
                 opacity: [0.2, 0.5, 0.2],
               }}
               transition={{ 
@@ -395,6 +604,31 @@ const Index: React.FC = () => {
               <Zap className="text-everblue/30 h-full w-full" />
             </motion.div>
           </div>
+          
+          {/* Floating circles background */}
+          {[...Array(6)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute rounded-full bg-everblue/5"
+              style={{
+                width: Math.random() * 100 + 50,
+                height: Math.random() * 100 + 50,
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+              }}
+              animate={{
+                y: [0, Math.random() * 30 - 15],
+                x: [0, Math.random() * 30 - 15],
+                scale: [1, Math.random() * 0.3 + 0.9, 1],
+              }}
+              transition={{
+                duration: Math.random() * 5 + 5,
+                repeat: Infinity,
+                repeatType: "reverse",
+                ease: "easeInOut"
+              }}
+            />
+          ))}
         </div>
       </motion.section>
       
@@ -459,10 +693,14 @@ const Index: React.FC = () => {
                 key={item.title}
                 className={`bg-gradient-to-br ${item.color} p-8 rounded-xl shadow-md overflow-hidden relative`}
                 variants={itemVariants}
-                whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                whileHover={{ 
+                  y: -8, 
+                  boxShadow: "0 20px 30px rgba(0, 0, 0, 0.1)",
+                  transition: { duration: 0.2 } 
+                }}
               >
                 <motion.div
-                  className="absolute -right-10 -top-10 w-40 h-40 rounded-full bg-white/20 blur-xl"
+                  className="absolute -right-20 -top-20 w-40 h-40 rounded-full bg-white/20 blur-xl"
                   animate={{ 
                     scale: [1, 1.2, 1],
                     rotate: [0, 90, 0],
@@ -480,13 +718,38 @@ const Index: React.FC = () => {
                 
                 <Link to={item.link} className="relative z-10">
                   <motion.button
-                    className="btn btn-primary"
+                    className="bg-everblue hover:bg-everblue/90 text-white px-4 py-2 rounded transition-colors"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
                     Learn More
                   </motion.button>
                 </Link>
+                
+                {/* Dynamic particle effects */}
+                {[...Array(3)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className="absolute rounded-full bg-white/40"
+                    style={{
+                      width: Math.random() * 10 + 5,
+                      height: Math.random() * 10 + 5,
+                      bottom: `${Math.random() * 60}%`,
+                      left: `${Math.random() * 60}%`,
+                    }}
+                    animate={{
+                      y: [0, -20],
+                      x: [0, Math.random() * 10 - 5],
+                      opacity: [0, 0.8, 0],
+                      scale: [0, 1, 0],
+                    }}
+                    transition={{
+                      duration: Math.random() * 3 + 2,
+                      repeat: Infinity,
+                      delay: Math.random() * 2,
+                    }}
+                  />
+                ))}
               </motion.div>
             ))}
           </motion.div>
@@ -499,3 +762,4 @@ const Index: React.FC = () => {
 };
 
 export default Index;
+
