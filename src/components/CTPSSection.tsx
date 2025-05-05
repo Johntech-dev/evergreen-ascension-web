@@ -1,35 +1,78 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import SectionLayout from './SectionLayout';
 import { motion } from 'framer-motion';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 
 const CTPSSection: React.FC = () => {
+  const [expandedShift, setExpandedShift] = useState<number | null>(null);
+
   const shifts = [
     {
       id: 1,
-      name: 'Calendar',
+      name: "Calendar",
       description: "Marked humanity's ability to track cycles, organize societies, and cultivate a shared memory.",
-      link: '#'
+      link: '#',
+      fullContent: `The 1st Cultural Time Perception Shift (1st CTPS): From Instinct to Civilization
+
+The 1st CTPS marked humanity's transition from immediate, survival-focused awareness into a structured sense of time rooted in natural cycles. Sparked by the advent of agriculture, this shift introduced early calendars—the first tools of temporal organization—and a shared understanding of linear time. These advancements enabled long-term planning, collaboration, and the growth of settlements, laying the foundation for organized societies, resource management, and the collective rhythms of early civilizations.
+
+Outcome of the 1st Cultural Time Perception Shift: "Bondage is the New Salvation"
+
+With the introduction of structured time, humanity exchanged the freedom of instinctual living for the constraints of shared temporal frameworks. This "bondage" to schedules, cycles, and communal rhythms became a form of salvation, as it allowed for the coordination and predictability necessary for survival and progress. The reliance on timekeeping tools and agricultural planning fostered interconnectedness and stability, enabling the birth of civilizations. Thus, the surrender to structured time liberated humanity from the chaos of uncertainty, transforming collective discipline into the cornerstone of growth and salvation.`
     },
     {
       id: 2,
-      name: 'Pendulum Clock',
-      description: 'Symbolized structured time, inspiring inquiry, organization, and knowledge expansion.',
-      link: '#'
+      name: "Pendulum Clock",
+      description: "Symbolized structured time, inspiring inquiry, organization, and knowledge expansion.",
+      link: '#',
+      fullContent: `The 2nd Cultural Time Perception Shift: "The Pendulum Universe" and the Paradox of Progress
+
+Time has always been humanity's most powerful yet elusive resource. During the 1st Cultural Time Perception Shift (1st CTPS), people attuned their lives to the rhythms of nature—seasonal cycles, the sun, and the moon—often guided by holistic knowledge maintained by Indigenous communities, women's ancestral wisdom, and broader communal practices. However, the 2nd CTPS ushered in a radical new era, redefining our relationship with time and reshaping our world. This was the age of the "Pendulum Universe."
+
+The Premise: Regulating Time
+
+The 2nd CTPS transformed time into a precise, measurable force. The pendulum clock, one of the most significant inventions of the early modern period, became the ultimate symbol of regulated timekeeping. Unlike sundials, water clocks, or even early mechanical timepieces, the pendulum clock offered unmatched precision, allowing humanity to impose a newfound structure on daily life.
+
+The Outcome: "Debt Is the New Freedom"
+
+With time now harnessed as a tool for productivity, a new economic paradigm emerged: debt as the engine of progress. Just as a pendulum swings between two extremes, industrial societies oscillated between expansion and repayment, fueling economic mobility while tethering individuals and institutions to rigid financial cycles.`
     },
     {
       id: 3,
-      name: 'Atomic Clock',
-      description: 'Introduced precision, driving industrialization and economic growth.',
-      link: '#'
+      name: "Atomic Clock",
+      description: "Introduced precision, driving industrialization and economic growth.",
+      link: '#',
+      fullContent: `The 3rd Cultural Time Perception Shift (3rd CTPS): A Relativistic Reality
+
+The 3rd Cultural Time Perception Shift marked humanity's transition from rigid, universal notions of time to a fluid, subjective, and interconnected understanding. Inspired by Einstein's theory of relativity, which showed that time varies with speed and gravity, and quantum mechanics, which revealed time's complex relationship with matter, this shift shattered the concept of absolute time.
+
+Technological breakthroughs like the atomic clock brought unprecedented precision to timekeeping, enabling innovations like GPS, where relativity's effects are corrected in real-world applications. The rise of the internet and digital connectivity further transformed time into a multi-dimensional experience, collapsing boundaries between real-time, asynchronous, and virtual interactions.
+
+Outcome of the 3rd Cultural Time Perception Shift: "Data is the New Power"
+
+The 3rd Cultural Time Perception Shift not only redefined humanity's understanding of time but also ushered in a new paradigm where data became the ultimate currency of power. Tools and technologies like atomic clocks, GPS, and digital networks enabled the precise tracking, organization, and utilization of information across temporal and spatial boundaries.`
     },
     {
       id: 4,
-      name: 'Personal Cognitive Computing',
-      description: 'Supports adaptive, IA-enabled time perception, fostering individual mastery and ecological alignment.',
-      link: '#'
+      name: "Personal Cognitive Computing",
+      description: "Supports adaptive, IA-enabled time perception, fostering individual mastery and ecological alignment.",
+      link: '#',
+      fullContent: `The 4th Cultural Time Perception Shift (4th CTPS): Temporal Mastery in the Cybernetic Age
+
+The 4th Cultural Time Perception Shift represents humanity's move from experiencing time as an external force to mastering it as a fluid, personalized, and co-evolving construct. This shift, driven by advanced cognitive technologies, artificial intelligence, and real-time feedback systems, transforms time from something we measure to something we optimize.
+
+In this new paradigm, tools like biofeedback systems, personal cognitive computing, and intelligence amplification allow individuals to perceive, manipulate, and interact with time in profoundly personal ways. Time becomes dynamic, tailored to individual needs and contexts, and aligned with neurocognitive states.
+
+Outcome of the 4th Cultural Time Perception Shift: "Digital Self-Sovereign Agency is Your Birthright"
+
+The 4th CTPS heralds a profound transformation in humanity's relationship with time and agency. Empowered by tools that amplify cognitive and creative potential, individuals can fully align their actions and aspirations with their intrinsic values. This outcome represents the ultimate freedom—not merely to navigate time but to shape it. In a world where individuals own their data, craft their narratives, and design their temporal experiences, "Digital Self-Sovereign Agency is Your Birthright."`
     }
   ];
+
+  const toggleExpand = (id: number) => {
+    setExpandedShift(expandedShift === id ? null : id);
+  };
 
   return (
     <SectionLayout 
@@ -94,17 +137,53 @@ const CTPSSection: React.FC = () => {
                     <p className="text-gray-700 mb-4">
                       {shift.description}
                     </p>
-                    <motion.a 
-                      href={shift.link} 
-                      className="text-everblue hover:underline inline-flex items-center"
-                      whileHover={{ x: 5 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                    
+                    <div className="flex justify-between items-center">
+                      <motion.a 
+                        href={shift.link} 
+                        className="text-everblue hover:underline inline-flex items-center"
+                        whileHover={{ x: 5 }}
+                        transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                      >
+                        <span>Link to more info & blog</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </motion.a>
+                      
+                      <motion.button
+                        onClick={() => toggleExpand(shift.id)}
+                        className="text-everblue hover:text-everblue/80 flex items-center"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        {expandedShift === shift.id ? (
+                          <>
+                            <span className="mr-1">Less</span>
+                            <ChevronUp size={16} />
+                          </>
+                        ) : (
+                          <>
+                            <span className="mr-1">More</span>
+                            <ChevronDown size={16} />
+                          </>
+                        )}
+                      </motion.button>
+                    </div>
+                    
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ 
+                        height: expandedShift === shift.id ? 'auto' : 0,
+                        opacity: expandedShift === shift.id ? 1 : 0
+                      }}
+                      transition={{ duration: 0.3 }}
+                      className="overflow-hidden mt-4"
                     >
-                      <span>Link to more info & blog</span>
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </motion.a>
+                      <div className="bg-gray-50 p-4 rounded-lg text-sm whitespace-pre-line">
+                        {shift.fullContent}
+                      </div>
+                    </motion.div>
                   </motion.div>
                 </motion.div>
               ))}
