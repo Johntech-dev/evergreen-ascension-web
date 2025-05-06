@@ -60,7 +60,7 @@ const CyberneticsHero = () => {
             <motion.span 
               className="text-everblue text-2xl md:text-3xl lg:text-4xl font-normal mt-2 block"
               animate={{ 
-                textShadow: ["0 0 8px rgba(71, 145, 97, 0.5)", "0 0 16px rgba(71, 145, 97, 0.3)", "0 0 8px rgba(71, 145, 97, 0.5)"]
+                textShadow: ["0 0 8px rgba(0, 123, 255, 0.5)", "0 0 16px rgba(0, 123, 255, 0.3)", "0 0 8px rgba(0, 123, 255, 0.5)"]
               }}
               transition={{ 
                 duration: 3, 
@@ -87,17 +87,29 @@ const CyberneticsHero = () => {
             transition={{ duration: 0.5, delay: 0.9 }}
             className="flex flex-wrap justify-center gap-4"
           >
-            <Button asChild size="lg" className="rounded-full">
-              <a href="#introduction">
-                Learn More
-              </a>
-            </Button>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 400, damping: 15 }}
+            >
+              <Button asChild size="lg" className="rounded-full">
+                <a href="#introduction">
+                  Learn More
+                </a>
+              </Button>
+            </motion.div>
             
-            <Button variant="outline" asChild size="lg" className="rounded-full text-white border-white/20 bg-white/10 hover:bg-white/20">
-              <a href="#support">
-                Support the Initiative
-              </a>
-            </Button>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 400, damping: 15 }}
+            >
+              <Button variant="outline" asChild size="lg" className="rounded-full text-white border-white/20 bg-white/10 hover:bg-white/20">
+                <a href="#support">
+                  Support the Initiative
+                </a>
+              </Button>
+            </motion.div>
           </motion.div>
         </motion.div>
       </div>
@@ -129,6 +141,38 @@ const CyberneticsHero = () => {
         >
           <ChevronDown className="w-4 h-4 text-white/60" />
         </motion.div>
+      </motion.div>
+
+      {/* Animated background particles */}
+      <motion.div className="absolute inset-0 z-5 pointer-events-none">
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 md:w-2 md:h-2 bg-white/20 rounded-full"
+            animate={{
+              x: [
+                `${Math.random() * 100}%`,
+                `${Math.random() * 100}%`,
+                `${Math.random() * 100}%`
+              ],
+              y: [
+                `${Math.random() * 100}%`,
+                `${Math.random() * 100}%`,
+                `${Math.random() * 100}%`
+              ],
+              opacity: [0.2, 0.5, 0.2]
+            }}
+            transition={{
+              duration: 20 + Math.random() * 10,
+              repeat: Infinity,
+              ease: "linear"
+            }}
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`
+            }}
+          />
+        ))}
       </motion.div>
     </div>
   );
