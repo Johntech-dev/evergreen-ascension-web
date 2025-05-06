@@ -97,4 +97,8 @@
   .btn-outline {
     @apply border border-everblue text-everblue hover:bg-everblue/10 transition-all;
   }
+  
+  .glass-card {
+    @apply bg-white shadow-md backdrop-blur-sm border border-gray-100/30 transition-all duration-300;
+  }
 }

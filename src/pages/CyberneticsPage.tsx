@@ -1,44 +1,23 @@
 
-import React, { useEffect } from 'react';
-import { motion, useAnimation } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import { ArrowRight, Brain, Zap, RefreshCw, Leaf } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import CyberneticsHero from '../components/CyberneticsHero';
-import Section from '../components/Section';
+import { useEffect } from "react";
+import { motion, useAnimation } from "framer-motion";
+import { ArrowRight, Brain, Zap, RefreshCw, Leaf } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import CyberneticsHero from "../components/CyberneticsHero";
+import Section from "../components/Section";
 
-const CyberneticsPage: React.FC = () => {
+const CyberneticsPage = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  // Animation controls
+  // Animation variants
   const fadeInVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
   };
-
-  // Section animations with intersection observer
-  const useAnimatedSection = () => {
-    const controls = useAnimation();
-    const [ref, inView] = useInView({ threshold: 0.2, triggerOnce: true });
-    
-    useEffect(() => {
-      if (inView) {
-        controls.start("visible");
-      }
-    }, [controls, inView]);
-    
-    return { ref, controls };
-  };
-
-  const section1 = useAnimatedSection();
-  const section2 = useAnimatedSection();
-  const section3 = useAnimatedSection();
-  const section4 = useAnimatedSection();
-  const ctaSection = useAnimatedSection();
 
   return (
     <>
@@ -53,9 +32,9 @@ const CyberneticsPage: React.FC = () => {
           title="Introduction to Cybernetics and Cymatics"
         >
           <motion.div 
-            ref={section1.ref}
             initial="hidden"
-            animate={section1.controls}
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
             variants={fadeInVariants}
             className="grid md:grid-cols-2 gap-8 items-center"
           >
@@ -149,9 +128,9 @@ const CyberneticsPage: React.FC = () => {
           className="bg-everblue/5"
         >
           <motion.div 
-            ref={section2.ref}
             initial="hidden"
-            animate={section2.controls}
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
             variants={fadeInVariants}
           >
             <div className="max-w-3xl mx-auto mb-12">
@@ -207,9 +186,9 @@ const CyberneticsPage: React.FC = () => {
           title="Why Cybernetics and Cymatics Matter Now"
         >
           <motion.div 
-            ref={section3.ref}
             initial="hidden"
-            animate={section3.controls}
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
             variants={fadeInVariants}
             className="grid md:grid-cols-2 gap-8 items-center"
           >
@@ -283,9 +262,9 @@ const CyberneticsPage: React.FC = () => {
           className="bg-everblue/5"
         >
           <motion.div 
-            ref={section4.ref}
             initial="hidden"
-            animate={section4.controls}
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
             variants={fadeInVariants}
           >
             <div className="max-w-3xl mx-auto">
@@ -341,9 +320,9 @@ const CyberneticsPage: React.FC = () => {
           title="Support Our Vision"
         >
           <motion.div 
-            ref={ctaSection.ref}
             initial="hidden"
-            animate={ctaSection.controls}
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
             variants={fadeInVariants}
             className="text-center max-w-2xl mx-auto"
           >

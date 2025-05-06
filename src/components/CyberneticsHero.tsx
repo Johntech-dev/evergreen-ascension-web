@@ -30,7 +30,7 @@ const CyberneticsHero = () => {
         }}
       >
         {/* Adaptive overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-primary/30 dark:from-black/80 dark:via-black/50 dark:to-primary/40 z-10"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-everblue/30 dark:from-black/80 dark:via-black/50 dark:to-everblue/40 z-10"></div>
         
         {/* Background image as fallback for video */}
         <div className="absolute inset-0 bg-black/60">
