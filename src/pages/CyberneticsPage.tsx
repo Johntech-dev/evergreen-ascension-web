@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { motion } from 'framer-motion';
 import CyberneticsSection from '../components/CyberneticsSection';
+import EticEmicComparison from '../components/EticEmicComparison';
 
 const CyberneticsPage: React.FC = () => {
   useEffect(() => {
@@ -38,6 +39,7 @@ const CyberneticsPage: React.FC = () => {
         </motion.h2>
         
         <CyberneticsSection />
+        <EticEmicComparison />
       </div>
       <Footer />
     </motion.div>
