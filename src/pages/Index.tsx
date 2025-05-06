@@ -7,6 +7,8 @@ import { motion, useInView, useAnimation, useScroll, useTransform } from 'framer
 import { Link } from 'react-router-dom';
 import { ArrowRight, CheckCircle, Shield, Brain, Zap, Leaf } from 'lucide-react';
 import { Button } from "@/components/ui/button";
+import Iaai from '../components/Iaai';
+import EticEmicComparison from '../components/EticEmicComparison';
 
 const Index: React.FC = () => {
   const controls = useAnimation();
@@ -19,11 +21,9 @@ const Index: React.FC = () => {
 
   const mainCircleRef = useRef(null);
   const vsRef = useRef(null);
-  const eticEmicRef = useRef(null);
   
   const mainCircleInView = useInView(mainCircleRef, { once: true });
   const vsInView = useInView(vsRef, { once: true });
-  const eticEmicInView = useInView(eticEmicRef, { once: true, amount: 0.3 });
 
   // Parallax effects
   const y1 = useTransform(scrollY, [0, 1000], [0, 300]);
@@ -54,42 +54,6 @@ const Index: React.FC = () => {
       y: 0,
       opacity: 1,
       transition: { duration: 0.5 }
-    }
-  };
-
-  const floatingVariants = {
-    float: {
-      y: [0, -15, 0],
-      transition: {
-        duration: 5,
-        repeat: Infinity,
-        repeatType: "mirror",
-        ease: "easeInOut"
-      }
-    }
-  };
-
-  const pulseVariants = {
-    pulse: {
-      scale: [1, 1.05, 1],
-      opacity: [0.7, 1, 0.7],
-      transition: {
-        duration: 3,
-        repeat: Infinity,
-        repeatType: "mirror",
-        ease: "easeInOut"
-      }
-    }
-  };
-
-  const rotateVariants = {
-    rotate: {
-      rotate: 360,
-      transition: {
-        duration: 40,
-        repeat: Infinity,
-        ease: "linear"
-      }
     }
   };
 
@@ -224,106 +188,18 @@ const Index: React.FC = () => {
           </div>
 
           {/* Etic vs Emic Approaches */}
-          <div ref={eticEmicRef} className="max-w-6xl mx-auto mt-16">
-            <h3 className="text-2xl font-bold mb-8 text-center">Etic vs Emic Approaches to Behavioral Science</h3>
-            
-            <div className="grid md:grid-cols-2 gap-8 mb-12">
-              <motion.div 
-                className="bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-xl shadow-md relative overflow-hidden"
-                initial={{ opacity: 0, x: -50 }}
-                animate={eticEmicInView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.6 }}
-              >
-                <motion.div 
-                  className="absolute -right-20 -top-20 w-40 h-40 bg-blue-200 rounded-full opacity-50"
-                  variants={pulseVariants}
-                  animate="pulse"
-                />
-                <motion.div 
-                  className="absolute -left-10 -bottom-10 w-20 h-20 bg-blue-300 rounded-full opacity-30"
-                  variants={floatingVariants}
-                  animate="float"
-                />
-                
-                <h4 className="text-xl font-bold mb-4 relative z-10">Etic Approach</h4>
-                <p className="text-gray-700 mb-4 relative z-10">
-                  The Etic approach views human behavior from an outsider's perspective, analyzing patterns and behaviors across cultures using objective measurements and observations.
-                </p>
-                <p className="text-gray-700 relative z-10">
-                  This approach leads to the development of AI systems that attempt to replicate human behavior through external observation and data collection, often missing the subtleties of human experience.
-                </p>
-                
-                <motion.div 
-                  className="absolute right-4 bottom-4 w-16 h-16 text-blue-300"
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                >
-                  <svg viewBox="0 0 200 200" className="w-full h-full">
-                    <path
-                      d="M100,20 C140,20 160,50 180,100 C160,150 140,180 100,180 C60,180 40,150 20,100 C40,50 60,20 100,20 Z"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1"
-                    />
-                  </svg>
-                </motion.div>
-              </motion.div>
-              
-              <motion.div 
-                className="bg-gradient-to-br from-indigo-50 to-indigo-100 p-8 rounded-xl shadow-md relative overflow-hidden"
-                initial={{ opacity: 0, x: 50 }}
-                animate={eticEmicInView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.2 }}
-              >
-                <motion.div 
-                  className="absolute -left-20 -top-20 w-40 h-40 bg-indigo-200 rounded-full opacity-50"
-                  variants={pulseVariants}
-                  animate="pulse"
-                />
-                <motion.div 
-                  className="absolute -right-10 -bottom-10 w-20 h-20 bg-indigo-300 rounded-full opacity-30"
-                  variants={floatingVariants}
-                  animate="float"
-                />
-                
-                <h4 className="text-xl font-bold mb-4 relative z-10">Emic Approach</h4>
-                <p className="text-gray-700 mb-4 relative z-10">
-                  The Emic approach studies behavior from within the cultural context, focusing on the insider's perspective and the subjective experience of individuals.
-                </p>
-                <p className="text-gray-700 relative z-10">
-                  This approach forms the foundation of Intelligence Amplification (IA), which seeks to enhance human cognition by understanding and working with our natural mental processes rather than replacing them.
-                </p>
-                
-                <motion.div 
-                  className="absolute right-4 bottom-4 w-16 h-16 text-indigo-300"
-                  animate={{ rotate: -360 }}
-                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                >
-                  <svg viewBox="0 0 200 200" className="w-full h-full">
-                    <path
-                      d="M100,20 C140,20 180,60 180,100 C180,140 140,180 100,180 C60,180 20,140 20,100 C20,60 60,20 100,20 Z"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1"
-                    />
-                    <path
-                      d="M100,40 C130,40 160,70 160,100 C160,130 130,160 100,160 C70,160 40,130 40,100 C40,70 70,40 100,40 Z"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1"
-                    />
-                    <path
-                      d="M100,60 C120,60 140,80 140,100 C140,120 120,140 100,140 C80,140 60,120 60,100 C60,80 80,60 100,60 Z"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1"
-                    />
-                  </svg>
-                </motion.div>
-              </motion.div>
-            </div>
-          </div>
+          <EticEmicComparison />
         </div>
+      </motion.section>
+
+      {/* IAAI Comparison */}
+      <motion.section
+        className="py-12 px-6"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1, duration: 0.8 }}
+      >
+        <Iaai />
       </motion.section>
 
       {/* Biometric Data Section */}
@@ -400,14 +276,22 @@ const Index: React.FC = () => {
               >
                 <motion.div 
                   className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-50 opacity-70"
-                  variants={pulseVariants}
-                  animate="pulse"
+                  animate={{ 
+                    scale: [1, 1.05, 1],
+                    opacity: [0.7, 1, 0.7]
+                  }}
+                  transition={{ 
+                    duration: 3,
+                    repeat: Infinity,
+                    repeatType: "mirror",
+                    ease: "easeInOut"
+                  }}
                 />
                 <Shield className="h-32 w-32 md:h-40 md:w-40 text-everblue relative z-10" />
                 <motion.div 
                   className="absolute w-full h-full rounded-full border-2 border-everblue/20"
-                  variants={rotateVariants}
-                  animate="rotate"
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
                 />
                 <motion.div 
                   className="absolute w-[120%] h-[120%] rounded-full border border-everblue/10"
@@ -456,8 +340,16 @@ const Index: React.FC = () => {
               >
                 <motion.div 
                   className="absolute inset-0 bg-gradient-to-br from-indigo-50 to-purple-50 opacity-70"
-                  variants={pulseVariants}
-                  animate="pulse"
+                  animate={{ 
+                    scale: [1, 1.05, 1],
+                    opacity: [0.7, 1, 0.7]
+                  }}
+                  transition={{ 
+                    duration: 3,
+                    repeat: Infinity,
+                    repeatType: "mirror",
+                    ease: "easeInOut"
+                  }}
                 />
                 <Brain className="h-32 w-32 md:h-40 md:w-40 text-everblue relative z-10" />
                 <motion.div 
@@ -580,8 +472,15 @@ const Index: React.FC = () => {
           {/* Background decorative elements with advanced animations */}
           <div className="absolute top-20 left-10 w-20 h-20">
             <motion.div
-              variants={floatingVariants}
-              animate="float"
+              animate={{ 
+                y: [0, -15, 0]
+              }}
+              transition={{ 
+                duration: 5,
+                repeat: Infinity,
+                repeatType: "mirror",
+                ease: "easeInOut"
+              }}
             >
               <Leaf className="text-everblue/40 h-full w-full" />
             </motion.div>
@@ -762,4 +661,3 @@ const Index: React.FC = () => {
 };
 
 export default Index;
-

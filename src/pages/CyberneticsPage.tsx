@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { motion } from 'framer-motion';
+import CyberneticsSection from '../components/CyberneticsSection';
 
 const CyberneticsPage: React.FC = () => {
   useEffect(() => {
@@ -36,7 +37,7 @@ const CyberneticsPage: React.FC = () => {
           The Foundation of Human-Centred Intelligence
         </motion.h2>
         
-        {/* Content will be populated from CyberneticsSection component */}
+        <CyberneticsSection />
       </div>
       <Footer />
     </motion.div>
