@@ -64,7 +64,7 @@ const Navbar = () => {
           </Link>
           
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex space-x-8">
+          <div className="hidden lg:flex space-x-5">
             {navItems.map((item, index) => (
               <Link
                 key={item.name}
