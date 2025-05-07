@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
@@ -6,46 +5,60 @@ import { Button } from "@/components/ui/button";
 
 const CyberneticsHero = () => {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
     setIsLoaded(true);
-    
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-    
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <div className="relative h-screen flex items-center justify-center overflow-hidden">
-      {/* Background with parallax effect */}
-      <div 
-        className="absolute inset-0 z-0"
-        style={{
-          transform: `translateY(${scrollY * 0.2}px)`, 
-          transition: 'transform 0.1s ease-out'
+    <div className="relative h-screen flex items-center justify-center overflow-hidden bg-white">
+      {/* Animated Background Elements */}
+      <motion.div 
+        className="absolute top-1/4 right-1/4 w-64 h-64 rounded-full bg-everblue/5 blur-3xl z-0"
+        animate={{ 
+          scale: [1, 1.2, 1],
+          x: [0, 30, 0],
+          y: [0, -30, 0]
         }}
-      >
-        {/* Adaptive overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-everblue/30 dark:from-black/80 dark:via-black/50 dark:to-everblue/40 z-10"></div>
-        
-        {/* Background image as fallback for video */}
-        <div className="absolute inset-0 bg-black/60">
-          <img 
-            src="/placeholder.svg" 
-            alt="Cybernetics background" 
-            className="w-full h-full object-cover opacity-40"
-          />
-        </div>
-      </div>
+        transition={{ 
+          duration: 20,
+          repeat: Infinity,
+          repeatType: "reverse"
+        }}
+      />
+      
+      <motion.div 
+        className="absolute bottom-1/3 left-1/4 w-96 h-96 rounded-full bg-everblue/10 blur-3xl z-0"
+        animate={{ 
+          scale: [1, 1.4, 1],
+          x: [0, -40, 0],
+          y: [0, 40, 0]
+        }}
+        transition={{ 
+          duration: 25,
+          repeat: Infinity,
+          repeatType: "reverse"
+        }}
+      />
+      
+      <motion.div 
+        className="absolute top-1/2 left-2/3 w-48 h-48 rounded-full bg-indigo-500/5 blur-3xl z-0"
+        animate={{ 
+          scale: [1, 1.3, 1],
+          x: [0, 20, 0],
+          y: [0, 20, 0]
+        }}
+        transition={{ 
+          duration: 15,
+          repeat: Infinity,
+          repeatType: "reverse"
+        }}
+      />
 
       {/* Content */}
       <div className="container mx-auto px-4 relative z-10">
         <motion.div 
-          className="max-w-4xl mx-auto text-center text-white"
+          className="max-w-4xl mx-auto text-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
@@ -73,7 +86,7 @@ const CyberneticsHero = () => {
           </motion.h1>
           
           <motion.p 
-            className="text-xl md:text-2xl text-white/80 mb-8 max-w-2xl mx-auto"
+            className="text-xl md:text-2xl text-gray-700 mb-8 max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
             transition={{ duration: 0.5, delay: 0.7 }}
@@ -104,7 +117,7 @@ const CyberneticsHero = () => {
               whileTap={{ scale: 0.95 }}
               transition={{ type: "spring", stiffness: 400, damping: 15 }}
             >
-              <Button variant="outline" asChild size="lg" className="rounded-full text-white border-white/20 bg-white/10 hover:bg-white/20">
+              <Button variant="outline" asChild size="lg" className="rounded-full">
                 <a href="#support">
                   Support the Initiative
                 </a>
@@ -116,14 +129,14 @@ const CyberneticsHero = () => {
 
       {/* Scroll indicator */}
       <motion.div 
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 flex flex-col items-center text-white/60"
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 flex flex-col items-center text-gray-500"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 1.5 }}
       >
         <span className="text-xs uppercase tracking-widest mb-2">Scroll</span>
         <motion.div 
-          className="w-[1px] h-8 bg-white/40"
+          className="w-[1px] h-8 bg-gray-400"
           animate={{ 
             scaleY: [1, 1.5, 1],
             opacity: [0.4, 0.7, 0.4]
@@ -139,40 +152,8 @@ const CyberneticsHero = () => {
           transition={{ duration: 1.5, repeat: Infinity }}
           className="mt-1"
         >
-          <ChevronDown className="w-4 h-4 text-white/60" />
+          <ChevronDown className="w-4 h-4 text-gray-500" />
         </motion.div>
-      </motion.div>
-
-      {/* Animated background particles */}
-      <motion.div className="absolute inset-0 z-5 pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 md:w-2 md:h-2 bg-white/20 rounded-full"
-            animate={{
-              x: [
-                `${Math.random() * 100}%`,
-                `${Math.random() * 100}%`,
-                `${Math.random() * 100}%`
-              ],
-              y: [
-                `${Math.random() * 100}%`,
-                `${Math.random() * 100}%`,
-                `${Math.random() * 100}%`
-              ],
-              opacity: [0.2, 0.5, 0.2]
-            }}
-            transition={{
-              duration: 20 + Math.random() * 10,
-              repeat: Infinity,
-              ease: "linear"
-            }}
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`
-            }}
-          />
-        ))}
       </motion.div>
     </div>
   );

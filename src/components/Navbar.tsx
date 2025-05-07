@@ -52,7 +52,7 @@ const Navbar = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
             >
-              Evergreen
+              TheEvergreen
             </motion.span> 
             <motion.span
               initial={{ opacity: 0, x: -10 }}
@@ -64,7 +64,7 @@ const Navbar = () => {
           </Link>
           
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex space-x-5">
+          <div className="hidden lg:flex gap-3">
             {navItems.map((item, index) => (
               <Link
                 key={item.name}
