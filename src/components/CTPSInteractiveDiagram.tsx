@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Brain, Zap, Clock, Calendar, BarChart } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { HoverCard, HoverCardTrigger, HoverCardContent } from '@/components/ui/hover-card';
+import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
 
 type CTPSCardProps = {
   id: string;
@@ -18,27 +20,16 @@ const CTPSCard: React.FC<CTPSCardProps> = ({
   title, 
   description, 
   icon, 
-  position,
   isCenter = false
 }) => {
   const [isHovered, setIsHovered] = useState(false);
-  
-  const getPositionClass = () => {
-    switch(position) {
-      case 'top': return 'lg:mb-8';
-      case 'bottom': return 'lg:mt-8';
-      case 'right': return 'lg:ml-8';
-      case 'left': return 'lg:mr-8';
-      default: return '';
-    }
-  };
   
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: id === '4' ? 0 : 0.2 * parseInt(id) }}
-      className={`${getPositionClass()} relative`}
+      className="relative"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -176,15 +167,21 @@ const CTPSInteractiveDiagram: React.FC = () => {
 
   return (
     <div className="py-10 w-full max-w-6xl mx-auto">
-      <div className="relative">
+      <div className="relative bg-gradient-to-b from-purple-50 to-blue-50 rounded-3xl p-8 overflow-hidden">
+        {/* Decorative gradient circles in the background */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-purple-100/50 blur-3xl"></div>
+          <div className="absolute -bottom-20 -left-20 w-64 h-64 rounded-full bg-blue-100/50 blur-3xl"></div>
+        </div>
+        
         {/* Connection lines */}
         <motion.div 
-          className="hidden lg:block absolute inset-0 pointer-events-none z-0"
+          className="absolute inset-0 pointer-events-none z-0"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.5 }}
+          transition={{ duration: 1, delay: 0.8 }}
         >
-          <svg width="100%" height="100%" viewBox="0 0 800 600" className="absolute inset-0">
+          <svg width="100%" height="100%" className="absolute inset-0">
             <defs>
               <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
                 <feGaussianBlur stdDeviation="5" result="blur" />
@@ -192,108 +189,117 @@ const CTPSInteractiveDiagram: React.FC = () => {
               </filter>
             </defs>
             
-            {/* Connecting lines with animation */}
-            <motion.path 
-              d="M 400,150 L 400,300" 
-              stroke="rgba(71, 145, 97, 0.5)" 
-              strokeWidth="2" 
-              fill="none" 
-              strokeDasharray="5,5"
-              filter="url(#glow)"
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ duration: 1.5, delay: 0.5 }}
-            />
-            <motion.path 
-              d="M 200,300 L 350,300" 
-              stroke="rgba(71, 145, 97, 0.5)" 
-              strokeWidth="2" 
-              fill="none" 
-              strokeDasharray="5,5"
-              filter="url(#glow)"
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ duration: 1.5, delay: 0.7 }}
-            />
-            <motion.path 
-              d="M 450,300 L 600,300" 
-              stroke="rgba(71, 145, 97, 0.5)" 
-              strokeWidth="2" 
-              fill="none" 
-              strokeDasharray="5,5"
-              filter="url(#glow)"
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ duration: 1.5, delay: 0.9 }}
-            />
-            <motion.path 
-              d="M 400,350 L 400,450" 
-              stroke="rgba(71, 145, 97, 0.5)" 
-              strokeWidth="2" 
-              fill="none" 
-              strokeDasharray="5,5"
-              filter="url(#glow)"
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ duration: 1.5, delay: 1.1 }}
-            />
-            
-            {/* Animated circles at intersection points */}
-            <motion.circle 
-              cx="400" 
-              cy="150" 
-              r="5" 
-              fill="rgba(71, 145, 97, 0.8)"
-              filter="url(#glow)"
-              animate={{ 
-                r: [5, 8, 5],
-                opacity: [0.7, 1, 0.7]
-              }}
-              transition={{ duration: 2, repeat: Infinity }}
-            />
-            <motion.circle 
-              cx="200" 
-              cy="300" 
-              r="5" 
-              fill="rgba(71, 145, 97, 0.8)"
-              filter="url(#glow)"
-              animate={{ 
-                r: [5, 8, 5],
-                opacity: [0.7, 1, 0.7]
-              }}
-              transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
-            />
-            <motion.circle 
-              cx="600" 
-              cy="300" 
-              r="5" 
-              fill="rgba(71, 145, 97, 0.8)"
-              filter="url(#glow)"
-              animate={{ 
-                r: [5, 8, 5],
-                opacity: [0.7, 1, 0.7]
-              }}
-              transition={{ duration: 2, repeat: Infinity, delay: 1 }}
-            />
-            <motion.circle 
-              cx="400" 
-              cy="450" 
-              r="5" 
-              fill="rgba(71, 145, 97, 0.8)"
-              filter="url(#glow)"
-              animate={{ 
-                r: [5, 8, 5],
-                opacity: [0.7, 1, 0.7]
-              }}
-              transition={{ duration: 2, repeat: Infinity, delay: 1.5 }}
-            />
+            {/* Radial connecting lines with animation */}
+            <g transform="translate(50%, 50%)">
+              {/* Top connection */}
+              <motion.path 
+                d="M 0,-20 L 0,-150" 
+                stroke="rgba(71, 145, 97, 0.5)" 
+                strokeWidth="2" 
+                fill="none"
+                strokeDasharray="5,5"
+                filter="url(#glow)"
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ duration: 1.5, delay: 0.5 }}
+              />
+              
+              {/* Left connection */}
+              <motion.path 
+                d="M -20,0 L -180,0" 
+                stroke="rgba(71, 145, 97, 0.5)" 
+                strokeWidth="2" 
+                fill="none"
+                strokeDasharray="5,5"
+                filter="url(#glow)"
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ duration: 1.5, delay: 0.7 }}
+              />
+              
+              {/* Right connection */}
+              <motion.path 
+                d="M 20,0 L 180,0" 
+                stroke="rgba(71, 145, 97, 0.5)" 
+                strokeWidth="2" 
+                fill="none"
+                strokeDasharray="5,5"
+                filter="url(#glow)"
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ duration: 1.5, delay: 0.9 }}
+              />
+              
+              {/* Bottom connection */}
+              <motion.path 
+                d="M 0,20 L 0,150" 
+                stroke="rgba(71, 145, 97, 0.5)" 
+                strokeWidth="2" 
+                fill="none"
+                strokeDasharray="5,5"
+                filter="url(#glow)"
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ duration: 1.5, delay: 1.1 }}
+              />
+              
+              {/* Animated circles at connection points */}
+              <motion.circle 
+                cx="0" 
+                cy="-150" 
+                r="5" 
+                fill="rgba(71, 145, 97, 0.8)"
+                filter="url(#glow)"
+                animate={{ 
+                  r: [5, 8, 5],
+                  opacity: [0.7, 1, 0.7]
+                }}
+                transition={{ duration: 2, repeat: Infinity }}
+              />
+              <motion.circle 
+                cx="-180" 
+                cy="0" 
+                r="5" 
+                fill="rgba(71, 145, 97, 0.8)"
+                filter="url(#glow)"
+                animate={{ 
+                  r: [5, 8, 5],
+                  opacity: [0.7, 1, 0.7]
+                }}
+                transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+              />
+              <motion.circle 
+                cx="180" 
+                cy="0" 
+                r="5" 
+                fill="rgba(71, 145, 97, 0.8)"
+                filter="url(#glow)"
+                animate={{ 
+                  r: [5, 8, 5],
+                  opacity: [0.7, 1, 0.7]
+                }}
+                transition={{ duration: 2, repeat: Infinity, delay: 1 }}
+              />
+              <motion.circle 
+                cx="0" 
+                cy="150" 
+                r="5" 
+                fill="rgba(71, 145, 97, 0.8)"
+                filter="url(#glow)"
+                animate={{ 
+                  r: [5, 8, 5],
+                  opacity: [0.7, 1, 0.7]
+                }}
+                transition={{ duration: 2, repeat: Infinity, delay: 1.5 }}
+              />
+            </g>
           </svg>
         </motion.div>
         
         {/* The actual cards layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
           {/* Top Card - 1st CTPS */}
-          <div className="lg:col-span-3 flex justify-center">
+          <div className="md:col-span-3 flex justify-center">
             <div className="w-full max-w-md">
               {ctpsData.find(card => card.position === 'top') && 
                 <CTPSCard {...ctpsData.find(card => card.position === 'top')!} />
@@ -302,40 +308,46 @@ const CTPSInteractiveDiagram: React.FC = () => {
           </div>
           
           {/* Left Card - 2nd CTPS */}
-          <div>
-            {ctpsData.find(card => card.position === 'left') && 
-              <CTPSCard {...ctpsData.find(card => card.position === 'left')!} />
-            }
+          <div className="flex justify-end items-center">
+            <div className="w-full max-w-md">
+              {ctpsData.find(card => card.position === 'left') && 
+                <CTPSCard {...ctpsData.find(card => card.position === 'left')!} />
+              }
+            </div>
           </div>
           
           {/* Center Card - 4th CTPS */}
-          <div>
-            {ctpsData.find(card => card.position === 'center') && 
-              <CTPSCard {...ctpsData.find(card => card.position === 'center')!} />
-            }
+          <div className="relative flex justify-center items-center">
+            <div className="w-full max-w-md">
+              {ctpsData.find(card => card.position === 'center') && 
+                <CTPSCard {...ctpsData.find(card => card.position === 'center')!} />
+              }
+            </div>
             
             {/* Center ornaments */}
             <motion.div 
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 rounded-full border border-everblue/10 pointer-events-none hidden lg:block"
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 rounded-full border border-everblue/10 pointer-events-none hidden md:block"
               animate={{ rotate: 360 }}
               transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
             />
             <motion.div 
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-60 h-60 rounded-full border border-everblue/20 pointer-events-none hidden lg:block"
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-60 h-60 rounded-full border border-everblue/20 pointer-events-none hidden md:block"
               animate={{ rotate: -360 }}
               transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
             />
           </div>
           
           {/* Right Card - 3rd CTPS */}
-          <div>
-            {ctpsData.find(card => card.position === 'right') && 
-              <CTPSCard {...ctpsData.find(card => card.position === 'right')!} />
-            }
+          <div className="flex justify-start items-center">
+            <div className="w-full max-w-md">
+              {ctpsData.find(card => card.position === 'right') && 
+                <CTPSCard {...ctpsData.find(card => card.position === 'right')!} />
+              }
+            </div>
           </div>
           
           {/* Bottom Card - Outcomes */}
-          <div className="lg:col-span-3 flex justify-center">
+          <div className="md:col-span-3 flex justify-center">
             <div className="w-full max-w-md">
               {ctpsData.find(card => card.position === 'bottom') && 
                 <CTPSCard {...ctpsData.find(card => card.position === 'bottom')!} />
@@ -344,9 +356,9 @@ const CTPSInteractiveDiagram: React.FC = () => {
           </div>
         </div>
         
-        {/* Background particles */}
+        {/* Floating particles */}
         <div className="absolute inset-0 pointer-events-none">
-          {[...Array(15)].map((_, i) => (
+          {[...Array(12)].map((_, i) => (
             <motion.div
               key={i}
               className="absolute w-2 h-2 rounded-full bg-everblue/10"
