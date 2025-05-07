@@ -3,8 +3,8 @@ import React, { useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import CTPSSection from '../components/CTPSSection';
+import CTPSInteractiveDiagram from '../components/CTPSInteractiveDiagram';
 import { motion } from 'framer-motion';
-import EnterpriseDiagram from '@/components/4tctpsDiagram';
 
 const CTPSPage: React.FC = () => {
   useEffect(() => {
@@ -21,8 +21,7 @@ const CTPSPage: React.FC = () => {
     >
       <Navbar />
       <div className="pt-32 pb-20">
-        <EnterpriseDiagram />
-        {/* <CTPSSection /> */}
+        <CTPSSection />
       </div>
       <Footer />
     </motion.div>
