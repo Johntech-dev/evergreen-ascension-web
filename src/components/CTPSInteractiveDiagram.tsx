@@ -19,31 +19,35 @@ export default function CTPSInteractiveDiagram() {
 
   return (
     <div className="w-full py-4">
-      <div className="mx-auto">
+      <div className="mx-auto max-w-[1000px]">
         <div 
-          className="relative w-full aspect-[16/9] mx-auto flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50 overflow-hidden mb-8 rounded-xl" 
-          style={{maxWidth: 900, height: "600px"}}
+          className="relative w-full mx-auto flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50 overflow-hidden mb-8 rounded-xl" 
+          style={{
+            height: "650px",
+            minHeight: "500px"
+          }}
         >
           {/* Connection lines */}
           <svg
             className="absolute inset-0 w-full h-full"
-            viewBox="0 0 900 600"
+            viewBox="0 0 1000 650"
+            preserveAspectRatio="xMidYMid meet"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
             {/* Outer circle */}
-            <circle cx="450" cy="300" r="200" stroke="rgba(71, 145, 97, 0.3)" strokeWidth="1" strokeDasharray="6 4" fill="none" />
+            <circle cx="500" cy="325" r="200" stroke="rgba(71, 145, 97, 0.3)" strokeWidth="1" strokeDasharray="6 4" fill="none" />
 
             {/* Connection lines */}
-            <line x1="450" y1="100" x2="450" y2="50" stroke="rgba(71, 145, 97, 0.5)" strokeWidth="2" strokeDasharray="6 4" />
-            <line x1="450" y1="500" x2="450" y2="550" stroke="rgba(71, 145, 97, 0.5)" strokeWidth="2" strokeDasharray="6 4" />
-            <line x1="250" y1="300" x2="200" y2="300" stroke="rgba(71, 145, 97, 0.5)" strokeWidth="2" strokeDasharray="6 4" />
-            <line x1="650" y1="300" x2="700" y2="300" stroke="rgba(71, 145, 97, 0.5)" strokeWidth="2" strokeDasharray="6 4" />
+            <line x1="500" y1="125" x2="500" y2="75" stroke="rgba(71, 145, 97, 0.5)" strokeWidth="2" strokeDasharray="6 4" />
+            <line x1="500" y1="525" x2="500" y2="575" stroke="rgba(71, 145, 97, 0.5)" strokeWidth="2" strokeDasharray="6 4" />
+            <line x1="300" y1="325" x2="250" y2="325" stroke="rgba(71, 145, 97, 0.5)" strokeWidth="2" strokeDasharray="6 4" />
+            <line x1="700" y1="325" x2="750" y2="325" stroke="rgba(71, 145, 97, 0.5)" strokeWidth="2" strokeDasharray="6 4" />
           </svg>
 
           {/* Central hub - The Outcomes */}
           <motion.div
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] bg-white rounded-xl shadow-lg z-10 overflow-hidden border-2 border-everblue"
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] md:w-[300px] bg-white rounded-xl shadow-lg z-10 overflow-hidden border-2 border-everblue"
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
@@ -65,7 +69,7 @@ export default function CTPSInteractiveDiagram() {
 
           {/* Top card - 1st CTPS */}
           <motion.div
-            className="absolute top-[20px] left-1/2 -translate-x-1/2 w-[300px] bg-white rounded-xl shadow-lg"
+            className="absolute top-[20px] left-1/2 -translate-x-1/2 w-[260px] sm:w-[280px] md:w-[300px] bg-white rounded-xl shadow-lg"
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.4 }}
@@ -86,7 +90,7 @@ export default function CTPSInteractiveDiagram() {
 
           {/* Bottom card - 4th CTPS */}
           <motion.div
-            className="absolute bottom-[20px] left-1/2 -translate-x-1/2 w-[300px] bg-white rounded-xl shadow-lg"
+            className="absolute bottom-[20px] left-1/2 -translate-x-1/2 w-[260px] sm:w-[280px] md:w-[300px] bg-white rounded-xl shadow-lg"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.6 }}
@@ -107,7 +111,7 @@ export default function CTPSInteractiveDiagram() {
 
           {/* Left card - 2nd CTPS */}
           <motion.div
-            className="absolute top-1/2 left-[20px] -translate-y-1/2 w-[250px] bg-white rounded-xl shadow-lg"
+            className="absolute top-1/2 left-[20px] sm:left-[30px] md:left-[50px] -translate-y-1/2 w-[220px] sm:w-[230px] md:w-[250px] bg-white rounded-xl shadow-lg"
             initial={{ x: -20, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.8 }}
@@ -124,7 +128,7 @@ export default function CTPSInteractiveDiagram() {
 
           {/* Right card - 3rd CTPS */}
           <motion.div
-            className="absolute top-1/2 right-[20px] -translate-y-1/2 w-[250px] bg-white rounded-xl shadow-lg"
+            className="absolute top-1/2 right-[20px] sm:right-[30px] md:right-[50px] -translate-y-1/2 w-[220px] sm:w-[230px] md:w-[250px] bg-white rounded-xl shadow-lg"
             initial={{ x: 20, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 1 }}
