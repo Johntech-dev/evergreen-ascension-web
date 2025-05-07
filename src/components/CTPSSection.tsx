@@ -12,7 +12,7 @@ const CTPSSection: React.FC = () => {
       id: 1,
       name: "Calendar",
       description: "Marked humanity's ability to track cycles, organize societies, and cultivate a shared memory.",
-      link: '#',
+      link: '/first-ctps',
       fullContent: `The 1st Cultural Time Perception Shift (1st CTPS): From Instinct to Civilization
 
 The 1st CTPS marked humanity's transition from immediate, survival-focused awareness into a structured sense of time rooted in natural cycles. Sparked by the advent of agriculture, this shift introduced early calendars—the first tools of temporal organization—and a shared understanding of linear time. These advancements enabled long-term planning, collaboration, and the growth of settlements, laying the foundation for organized societies, resource management, and the collective rhythms of early civilizations.
@@ -25,7 +25,7 @@ With the introduction of structured time, humanity exchanged the freedom of inst
       id: 2,
       name: "Pendulum Clock",
       description: "Symbolized structured time, inspiring inquiry, organization, and knowledge expansion.",
-      link: '#',
+      link: '/second-ctps',
       fullContent: `The 2nd Cultural Time Perception Shift: "The Pendulum Universe" and the Paradox of Progress
 
 Time has always been humanity's most powerful yet elusive resource. During the 1st Cultural Time Perception Shift (1st CTPS), people attuned their lives to the rhythms of nature—seasonal cycles, the sun, and the moon—often guided by holistic knowledge maintained by Indigenous communities, women's ancestral wisdom, and broader communal practices. However, the 2nd CTPS ushered in a radical new era, redefining our relationship with time and reshaping our world. This was the age of the "Pendulum Universe."
@@ -42,7 +42,7 @@ With time now harnessed as a tool for productivity, a new economic paradigm emer
       id: 3,
       name: "Atomic Clock",
       description: "Introduced precision, driving industrialization and economic growth.",
-      link: '#',
+      link: '/third-ctps',
       fullContent: `The 3rd Cultural Time Perception Shift (3rd CTPS): A Relativistic Reality
 
 The 3rd Cultural Time Perception Shift marked humanity's transition from rigid, universal notions of time to a fluid, subjective, and interconnected understanding. Inspired by Einstein's theory of relativity, which showed that time varies with speed and gravity, and quantum mechanics, which revealed time's complex relationship with matter, this shift shattered the concept of absolute time.
@@ -57,7 +57,7 @@ The 3rd Cultural Time Perception Shift not only redefined humanity's understandi
       id: 4,
       name: "Personal Cognitive Computing",
       description: "Supports adaptive, IA-enabled time perception, fostering individual mastery and ecological alignment.",
-      link: '#',
+      link: '/fourth-ctps',
       fullContent: `The 4th Cultural Time Perception Shift (4th CTPS): Temporal Mastery in the Cybernetic Age
 
 The 4th Cultural Time Perception Shift represents humanity's move from experiencing time as an external force to mastering it as a fluid, personalized, and co-evolving construct. This shift, driven by advanced cognitive technologies, artificial intelligence, and real-time feedback systems, transforms time from something we measure to something we optimize.

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { BarChart3, Users, Database, Phone } from "lucide-react"
 
-export default function EnterpriseDiagram() {
+export default function CTPSDiagram() {
   const [isAnimating, setIsAnimating] = useState(true)
 
   useEffect(() => {
@@ -19,9 +19,19 @@ export default function EnterpriseDiagram() {
   }, [])
 
   return (
-    <div className="w-full py-20">
-      <div className="container mx-auto">
-        <div className="relative w-full max-w-[900px] min-h-[500px] h-[60vw] max-h-[900px] mx-auto flex items-center justify-center bg-white overflow-hidden mb-16">
+    <section className="w-full py-12">
+      <div className="container mx-auto px-4">
+        {/* Heading Section */}
+        <div className="text-center mb-8">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+            4th CTPS: Personal Cognitive Computing
+          </h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            A comprehensive system architecture enabling adaptive, IA-enhanced time perception and cognitive computing capabilities
+          </p>
+        </div>
+
+        <div className="relative w-full max-w-[900px] min-h-[500px] h-[60vw] max-h-[900px] mx-auto flex items-center justify-center bg-white overflow-hidden rounded-xl shadow-lg">
           {/* Connection lines */}
           <svg
             className="absolute inset-0 w-full h-full"
@@ -235,6 +245,6 @@ export default function EnterpriseDiagram() {
           )}
         </div>
       </div>
-    </div>
+    </section>
   )
 }

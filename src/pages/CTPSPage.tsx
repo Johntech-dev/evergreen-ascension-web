@@ -21,6 +21,7 @@ const CTPSPage: React.FC = () => {
     >
       <Navbar />
       <div className="pt-32 pb-20">
+        <CTPSInteractiveDiagram />
         <CTPSSection />
       </div>
       <Footer />
