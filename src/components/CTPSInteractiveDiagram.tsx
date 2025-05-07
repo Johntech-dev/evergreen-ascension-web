@@ -1,367 +1,202 @@
 
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Brain, Zap, Clock, Calendar, BarChart } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { HoverCard, HoverCardTrigger, HoverCardContent } from '@/components/ui/hover-card';
-import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { Brain, Clock, Calendar, Users, BarChart3 } from "lucide-react";
 
-type CTPSCardProps = {
-  id: string;
-  title: string;
-  description: string;
-  icon: React.ReactNode;
-  position: 'top' | 'right' | 'bottom' | 'left' | 'center';
-  isCenter?: boolean;
-};
+export default function CTPSInteractiveDiagram() {
+  const [isAnimating, setIsAnimating] = useState(true);
 
-const CTPSCard: React.FC<CTPSCardProps> = ({ 
-  id, 
-  title, 
-  description, 
-  icon, 
-  isCenter = false
-}) => {
-  const [isHovered, setIsHovered] = useState(false);
-  
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: id === '4' ? 0 : 0.2 * parseInt(id) }}
-      className="relative"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <Card 
-        className={`
-          ${isCenter 
-            ? 'bg-everblue text-white border-everblue/30 shadow-lg shadow-everblue/20'
-            : 'bg-white hover:bg-everblue/5 border-gray-100'
-          } 
-          glass-card relative overflow-hidden transition-all duration-300 z-10
-          ${isHovered ? 'translate-y-[-8px] shadow-xl' : ''}
-        `}
-      >
-        {isCenter && (
-          <motion.div 
-            className="absolute inset-0 bg-gradient-to-br from-everblue to-everblue/80 opacity-80 z-0"
-            animate={{ 
-              background: [
-                'linear-gradient(135deg, rgba(71, 145, 97, 0.8) 0%, rgba(71, 145, 97, 0.6) 100%)',
-                'linear-gradient(225deg, rgba(71, 145, 97, 0.8) 0%, rgba(71, 145, 97, 0.6) 100%)',
-                'linear-gradient(315deg, rgba(71, 145, 97, 0.8) 0%, rgba(71, 145, 97, 0.6) 100%)',
-                'linear-gradient(45deg, rgba(71, 145, 97, 0.8) 0%, rgba(71, 145, 97, 0.6) 100%)'
-              ]
-            }}
-            transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-          />
-        )}
-        
-        <CardHeader className="relative z-10">
-          <motion.div 
-            className={`
-              w-12 h-12 rounded-full flex items-center justify-center mb-3
-              ${isCenter 
-                ? 'bg-white/20 text-white' 
-                : 'bg-everblue/10 text-everblue'
-              }
-            `}
-            whileHover={{ scale: 1.1 }}
-            transition={{ type: "spring", stiffness: 400, damping: 10 }}
-          >
-            {icon}
-          </motion.div>
-          <CardTitle className={`text-xl ${isCenter ? 'text-white' : ''}`}>
-            {title}
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="relative z-10">
-          <p className={isCenter ? 'text-white/90' : 'text-gray-600'}>
-            {description}
-          </p>
-          
-          <motion.div 
-            className="mt-3"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: isHovered ? 1 : 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <a 
-              href={`#ctps-${id}`} 
-              className={`
-                text-sm font-medium inline-flex items-center
-                ${isCenter ? 'text-white' : 'text-everblue'}
-              `}
-            >
-              Learn more 
-              <svg 
-                className="ml-1 w-4 h-4" 
-                fill="none" 
-                viewBox="0 0 24 24" 
-                stroke="currentColor"
-              >
-                <path 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-                  strokeWidth={2} 
-                  d="M14 5l7 7m0 0l-7 7m7-7H3" 
-                />
-              </svg>
-            </a>
-          </motion.div>
-        </CardContent>
-
-        {isHovered && (
-          <motion.div 
-            className="absolute bottom-0 left-0 right-0 h-1 bg-everblue"
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 0.3 }}
-          />
-        )}
-      </Card>
-    </motion.div>
-  );
-};
-
-const CTPSInteractiveDiagram: React.FC = () => {
-  const ctpsData: CTPSCardProps[] = [
-    {
-      id: '1',
-      title: '1st CTPS: Calendar',
-      description: 'Marked humanity\'s ability to track cycles, organize societies, and cultivate a shared memory.',
-      icon: <Calendar className="h-6 w-6" />,
-      position: 'top',
-    },
-    {
-      id: '2',
-      title: '2nd CTPS: Pendulum Clock',
-      description: 'Symbolized structured time, inspiring inquiry, organization, and knowledge expansion.',
-      icon: <Clock className="h-6 w-6" />,
-      position: 'left',
-    },
-    {
-      id: '4',
-      title: '4th CTPS: Personal Cognitive Computing',
-      description: 'Supports adaptive, IA-enabled time perception, fostering individual mastery and ecological alignment.',
-      icon: <Brain className="h-6 w-6" />,
-      position: 'center',
-      isCenter: true,
-    },
-    {
-      id: '3',
-      title: '3rd CTPS: Atomic Clock',
-      description: 'Introduced precision, driving industrialization and economic growth.',
-      icon: <Zap className="h-6 w-6" />,
-      position: 'right',
-    },
-    {
-      id: '5',
-      title: 'The Outcomes',
-      description: 'Cultural Time Perception Shifts drive technological, economic, and social transformation over history.',
-      icon: <BarChart className="h-6 w-6" />,
-      position: 'bottom',
-    },
-  ];
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsAnimating(true);
+      const timeout = setTimeout(() => {
+        setIsAnimating(false);
+      }, 2000);
+      return () => clearTimeout(timeout);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <div className="py-10 w-full max-w-6xl mx-auto">
-      <div className="relative bg-gradient-to-b from-purple-50 to-blue-50 rounded-3xl p-8 overflow-hidden">
-        {/* Decorative gradient circles in the background */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-purple-100/50 blur-3xl"></div>
-          <div className="absolute -bottom-20 -left-20 w-64 h-64 rounded-full bg-blue-100/50 blur-3xl"></div>
-        </div>
-        
-        {/* Connection lines */}
-        <motion.div 
-          className="absolute inset-0 pointer-events-none z-0"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.8 }}
+    <div className="w-full py-4">
+      <div className="mx-auto">
+        <div 
+          className="relative w-full aspect-[1/1] mx-auto flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50 overflow-hidden mb-8 rounded-xl" 
+          style={{maxWidth: 900}}
         >
-          <svg width="100%" height="100%" className="absolute inset-0">
-            <defs>
-              <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-                <feGaussianBlur stdDeviation="5" result="blur" />
-                <feComposite in="SourceGraphic" in2="blur" operator="over" />
-              </filter>
-            </defs>
-            
-            {/* Radial connecting lines with animation */}
-            <g transform="translate(50%, 50%)">
-              {/* Top connection */}
-              <motion.path 
-                d="M 0,-20 L 0,-150" 
-                stroke="rgba(71, 145, 97, 0.5)" 
-                strokeWidth="2" 
-                fill="none"
-                strokeDasharray="5,5"
-                filter="url(#glow)"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{ duration: 1.5, delay: 0.5 }}
-              />
-              
-              {/* Left connection */}
-              <motion.path 
-                d="M -20,0 L -180,0" 
-                stroke="rgba(71, 145, 97, 0.5)" 
-                strokeWidth="2" 
-                fill="none"
-                strokeDasharray="5,5"
-                filter="url(#glow)"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{ duration: 1.5, delay: 0.7 }}
-              />
-              
-              {/* Right connection */}
-              <motion.path 
-                d="M 20,0 L 180,0" 
-                stroke="rgba(71, 145, 97, 0.5)" 
-                strokeWidth="2" 
-                fill="none"
-                strokeDasharray="5,5"
-                filter="url(#glow)"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{ duration: 1.5, delay: 0.9 }}
-              />
-              
-              {/* Bottom connection */}
-              <motion.path 
-                d="M 0,20 L 0,150" 
-                stroke="rgba(71, 145, 97, 0.5)" 
-                strokeWidth="2" 
-                fill="none"
-                strokeDasharray="5,5"
-                filter="url(#glow)"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{ duration: 1.5, delay: 1.1 }}
-              />
-              
-              {/* Animated circles at connection points */}
-              <motion.circle 
-                cx="0" 
-                cy="-150" 
-                r="5" 
-                fill="rgba(71, 145, 97, 0.8)"
-                filter="url(#glow)"
-                animate={{ 
-                  r: [5, 8, 5],
-                  opacity: [0.7, 1, 0.7]
-                }}
-                transition={{ duration: 2, repeat: Infinity }}
-              />
-              <motion.circle 
-                cx="-180" 
-                cy="0" 
-                r="5" 
-                fill="rgba(71, 145, 97, 0.8)"
-                filter="url(#glow)"
-                animate={{ 
-                  r: [5, 8, 5],
-                  opacity: [0.7, 1, 0.7]
-                }}
-                transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
-              />
-              <motion.circle 
-                cx="180" 
-                cy="0" 
-                r="5" 
-                fill="rgba(71, 145, 97, 0.8)"
-                filter="url(#glow)"
-                animate={{ 
-                  r: [5, 8, 5],
-                  opacity: [0.7, 1, 0.7]
-                }}
-                transition={{ duration: 2, repeat: Infinity, delay: 1 }}
-              />
-              <motion.circle 
-                cx="0" 
-                cy="150" 
-                r="5" 
-                fill="rgba(71, 145, 97, 0.8)"
-                filter="url(#glow)"
-                animate={{ 
-                  r: [5, 8, 5],
-                  opacity: [0.7, 1, 0.7]
-                }}
-                transition={{ duration: 2, repeat: Infinity, delay: 1.5 }}
-              />
-            </g>
+          {/* Connection lines */}
+          <svg
+            className="absolute inset-0 w-full h-full"
+            viewBox="0 0 900 900"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            {/* Outer circle */}
+            <circle cx="450" cy="450" r="250" stroke="rgba(71, 145, 97, 0.3)" strokeWidth="1" strokeDasharray="6 4" fill="none" />
+
+            {/* Vertical connection lines */}
+            <line x1="450" y1="200" x2="450" y2="150" stroke="rgba(71, 145, 97, 0.5)" strokeWidth="2" strokeDasharray="6 4" />
+            <line x1="450" y1="700" x2="450" y2="750" stroke="rgba(71, 145, 97, 0.5)" strokeWidth="2" strokeDasharray="6 4" />
+
+            {/* Horizontal connection lines */}
+            <line x1="200" y1="450" x2="150" y2="450" stroke="rgba(71, 145, 97, 0.5)" strokeWidth="2" strokeDasharray="6 4" />
+            <line x1="700" y1="450" x2="750" y2="450" stroke="rgba(71, 145, 97, 0.5)" strokeWidth="2" strokeDasharray="6 4" />
           </svg>
-        </motion.div>
-        
-        {/* The actual cards layout */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
-          {/* Top Card - 1st CTPS */}
-          <div className="md:col-span-3 flex justify-center">
-            <div className="w-full max-w-md">
-              {ctpsData.find(card => card.position === 'top') && 
-                <CTPSCard {...ctpsData.find(card => card.position === 'top')!} />
-              }
+
+          {/* Central hub - 4th CTPS */}
+          <motion.div
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] bg-white rounded-xl shadow-lg z-10 overflow-hidden border-2 border-everblue"
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <div className="p-4 bg-everblue rounded-t-xl">
+              <h3 className="text-center font-semibold text-white">4th CTPS: Personal Cognitive Computing</h3>
             </div>
-          </div>
+            <div className="p-6">
+              <p className="text-sm text-gray-600 mb-4">
+                Supports adaptive, IA-enabled time perception, fostering individual mastery and ecological alignment.
+              </p>
+              <div className="flex justify-center mt-2">
+                <div className="w-12 h-12 rounded-full bg-everblue/10 flex items-center justify-center text-everblue">
+                  <Brain size={24} />
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Top card - 1st CTPS */}
+          <motion.div
+            className="absolute top-[-30px] left-1/2 -translate-x-1/2 w-[300px] bg-white rounded-xl shadow-lg"
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            whileHover={{ y: -5, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
+          >
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800 mb-2">1st CTPS: Calendar</h2>
+              <p className="text-sm text-gray-600 mb-4">
+                Marked humanity's ability to track cycles, organize societies, and cultivate a shared memory.
+              </p>
+              <div className="flex justify-center mt-2">
+                <div className="w-12 h-12 rounded-full bg-everblue/10 flex items-center justify-center text-everblue">
+                  <Calendar size={24} />
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Bottom card - 5th CTPS */}
+          <motion.div
+            className="absolute bottom-[-25px] left-1/2 -translate-x-1/2 w-[300px] bg-white rounded-xl shadow-lg"
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+            whileHover={{ y: 5, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
+          >
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-800 mb-2">The Outcomes</h2>
+              <p className="text-sm text-gray-600 mb-4">
+                Cultural Time Perception Shifts drive technological, economic, and social transformation over history.
+              </p>
+              <div className="flex justify-center mt-2">
+                <div className="w-12 h-12 rounded-full bg-everblue/10 flex items-center justify-center text-everblue">
+                  <BarChart3 size={24} />
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Left card - 2nd CTPS */}
+          <motion.div
+            className="absolute top-1/2 left-[-30px] -translate-y-1/2 w-[250px] bg-white rounded-xl shadow-lg"
+            initial={{ x: -20, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.8 }}
+            whileHover={{ x: -5, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
+          >
+            <div className="p-6">
+              <div className="w-12 h-12 rounded-full bg-everblue/10 flex items-center justify-center text-everblue mb-3">
+                <Clock size={24} />
+              </div>
+              <h2 className="text-xl font-bold text-gray-800 mb-2">2nd CTPS: Pendulum Clock</h2>
+              <p className="text-sm text-gray-600">Symbolized structured time, inspiring inquiry, organization, and knowledge expansion.</p>
+            </div>
+          </motion.div>
+
+          {/* Right card - 3rd CTPS */}
+          <motion.div
+            className="absolute top-1/2 right-[30px] -translate-y-1/2 w-[250px] bg-white rounded-xl shadow-lg"
+            initial={{ x: 20, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 1 }}
+            whileHover={{ x: 5, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
+          >
+            <div className="p-6">
+              <div className="w-12 h-12 rounded-full bg-everblue/10 flex items-center justify-center text-everblue mb-3">
+                <Users size={24} />
+              </div>
+              <h2 className="text-xl font-bold text-gray-800 mb-2">3rd CTPS: Atomic Clock</h2>
+              <p className="text-sm text-gray-600">Introduced precision, driving industrialization and economic growth.</p>
+            </div>
+          </motion.div>
+
+          {/* Animated connection indicators */}
+          {isAnimating && (
+            <>
+              <motion.div
+                className="absolute top-[175px] left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-everblue"
+                animate={{
+                  y: [0, -25, 0],
+                  opacity: [0, 1, 0],
+                }}
+                transition={{ duration: 2, ease: "easeInOut" }}
+              />
+              <motion.div
+                className="absolute bottom-[175px] left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-everblue"
+                animate={{
+                  y: [0, 25, 0],
+                  opacity: [0, 1, 0],
+                }}
+                transition={{ duration: 2, ease: "easeInOut" }}
+              />
+              <motion.div
+                className="absolute top-1/2 -translate-y-1/2 left-[175px] w-3 h-3 rounded-full bg-everblue"
+                animate={{
+                  x: [0, -25, 0],
+                  opacity: [0, 1, 0],
+                }}
+                transition={{ duration: 2, ease: "easeInOut" }}
+              />
+              <motion.div
+                className="absolute top-1/2 -translate-y-1/2 right-[175px] w-3 h-3 rounded-full bg-everblue"
+                animate={{
+                  x: [0, 25, 0],
+                  opacity: [0, 1, 0],
+                }}
+                transition={{ duration: 2, ease: "easeInOut" }}
+              />
+            </>
+          )}
+
+          {/* Rotating circles for center decoration */}
+          <motion.div 
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] border border-everblue/10 rounded-full pointer-events-none"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+          />
           
-          {/* Left Card - 2nd CTPS */}
-          <div className="flex justify-end items-center">
-            <div className="w-full max-w-md">
-              {ctpsData.find(card => card.position === 'left') && 
-                <CTPSCard {...ctpsData.find(card => card.position === 'left')!} />
-              }
-            </div>
-          </div>
+          <motion.div 
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] border border-everblue/5 rounded-full pointer-events-none"
+            animate={{ rotate: -360 }}
+            transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+          />
           
-          {/* Center Card - 4th CTPS */}
-          <div className="relative flex justify-center items-center">
-            <div className="w-full max-w-md">
-              {ctpsData.find(card => card.position === 'center') && 
-                <CTPSCard {...ctpsData.find(card => card.position === 'center')!} />
-              }
-            </div>
-            
-            {/* Center ornaments */}
-            <motion.div 
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 rounded-full border border-everblue/10 pointer-events-none hidden md:block"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-            />
-            <motion.div 
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-60 h-60 rounded-full border border-everblue/20 pointer-events-none hidden md:block"
-              animate={{ rotate: -360 }}
-              transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-            />
-          </div>
-          
-          {/* Right Card - 3rd CTPS */}
-          <div className="flex justify-start items-center">
-            <div className="w-full max-w-md">
-              {ctpsData.find(card => card.position === 'right') && 
-                <CTPSCard {...ctpsData.find(card => card.position === 'right')!} />
-              }
-            </div>
-          </div>
-          
-          {/* Bottom Card - Outcomes */}
-          <div className="md:col-span-3 flex justify-center">
-            <div className="w-full max-w-md">
-              {ctpsData.find(card => card.position === 'bottom') && 
-                <CTPSCard {...ctpsData.find(card => card.position === 'bottom')!} />
-              }
-            </div>
-          </div>
-        </div>
-        
-        {/* Floating particles */}
-        <div className="absolute inset-0 pointer-events-none">
-          {[...Array(12)].map((_, i) => (
+          {/* Floating particles */}
+          {[...Array(10)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-2 h-2 rounded-full bg-everblue/10"
+              className="absolute w-1.5 h-1.5 rounded-full bg-everblue/20"
               initial={{
                 x: `${Math.random() * 100}%`,
                 y: `${Math.random() * 100}%`,
@@ -389,6 +224,4 @@ const CTPSInteractiveDiagram: React.FC = () => {
       </div>
     </div>
   );
-};
-
-export default CTPSInteractiveDiagram;
+}
