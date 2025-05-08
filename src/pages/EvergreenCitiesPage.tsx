@@ -1,14 +1,15 @@
-import { useState, useEffect } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { ArrowRight, Building2, Leaf, Globe, Hand, MapPin, CheckIcon, Users, MessageCircle, TreePine, Sparkles } from "lucide-react";
+import React, { useEffect, useState } from 'react';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+import { motion, useScroll, useTransform, useSpring, useInView, AnimatePresence } from 'framer-motion';
+import { Building2, Leaf, TreePine, Users, Globe, ArrowRight, MapPin, Heart, Sparkles, Lightbulb, Hand, CheckIcon, MessageCircle } from 'lucide-react';
+import Section from '../components/Section';
 import { Button } from "@/components/ui/button";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import Section from "@/components/Section";
 
-const Cities = () => {
-  const [isLoaded, setIsLoaded] = useState(false);
+const EvergreenCitiesPage: React.FC = () => {
+  const [isHovered, setIsHovered] = useState<string | null>(null);
+  const [selectedCity, setSelectedCity] = useState<string | null>(null);
   const { scrollYProgress } = useScroll();
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
 
@@ -16,11 +17,63 @@ const Cities = () => {
   const y1 = useTransform(smoothProgress, [0, 1], [0, 150]);
   const y2 = useTransform(smoothProgress, [0, 1], [0, -150]);
   const opacity = useTransform(smoothProgress, [0, 0.5], [1, 0.8]);
+  const scale = useTransform(smoothProgress, [0, 0.5], [1, 1.1]);
 
   useEffect(() => {
-    setIsLoaded(true);
     window.scrollTo(0, 0);
   }, []);
+
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { 
+        duration: 0.5,
+        ease: [0.16, 1, 0.3, 1]
+      }
+    }
+  };
+
+  const cardVariants = {
+    initial: { 
+      scale: 1,
+      y: 0,
+      opacity: 0.8
+    },
+    hover: { 
+      scale: 1.02,
+      y: -10,
+      opacity: 1,
+      transition: {
+        duration: 0.3,
+        ease: [0.16, 1, 0.3, 1]
+      }
+    }
+  };
+
+  const imageVariants = {
+    initial: { scale: 1 },
+    hover: { 
+      scale: 1.1,
+      transition: {
+        duration: 0.5,
+        ease: [0.16, 1, 0.3, 1]
+      }
+    }
+  };
 
   const cityData = [
     {
@@ -471,4 +524,4 @@ const Cities = () => {
   );
 };
 
-export default Cities;
+export default EvergreenCitiesPage; 

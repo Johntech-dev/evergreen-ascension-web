@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Home, BookOpen, Users, Info, Building, Menu, X, ChevronRight, Image, ChevronDown } from 'lucide-react';
+import { Home, BookOpen, Users, Info, Building, Menu, X, ChevronRight, HelpCircle, ChevronDown } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -30,7 +30,7 @@ const navItems: NavItem[] = [
   },
   { name: 'AKEA University', href: '/university', icon: <Building className="w-4 h-4" /> },
   { name: 'Evergreen Cities', href: '/cities', icon: <Building className="w-4 h-4" /> },
-  { name: 'Gallery', href: '/gallery', icon: <Image className="w-4 h-4" /> },
+  { name: 'FAQ', href: '/faq', icon: <HelpCircle className="w-4 h-4" /> },
 ];
 
 const Navbar = () => {

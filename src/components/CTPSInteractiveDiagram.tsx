@@ -31,9 +31,9 @@ export default function CTPSInteractiveDiagram() {
 
         <div className="mx-auto max-w-full">
           <div 
-            className="relative w-full mx-auto flex items-center justify-center  overflow-hidden mb-8 rounded-xl" 
+            className="relative w-full mx-auto flex items-center justify-center overflow-hidden mb-8 rounded-xl" 
             style={{
-              height: "1000px",
+              height: "clamp(1000px, 180vh, 1000px)",
               minHeight: "500px"
             }}
           >
@@ -57,21 +57,21 @@ export default function CTPSInteractiveDiagram() {
 
             {/* Central hub - The Outcomes */}
             <motion.div
-              className="absolute  h-[170px] md:h-[250px] w-[150px] md:w-[250px]  bg-white rounded-xl shadow-lg z-10 overflow-hidden border-2 border-everblue"
+              className="absolute h-[170px] sm:h-[200px] md:h-[230px] w-[180px] sm:w-[150px] md:w-[230px] bg-white rounded-xl shadow-lg z-10 overflow-hidden border-2 border-everblue"
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <div className="p-4 bg-everblue rounded-t-xl">
-                <h3 className="text-center font-semibold text-white">The Outcomes</h3>
+              <div className="p-2 sm:p-4 bg-everblue rounded-t-xl">
+                <h3 className="text-center font-semibold text-white text-sm sm:text-base">The Outcomes</h3>
               </div>
-              <div className="p-6">
-                <p className="text-[15px] text-gray-600 mb-4">
+              <div className="p-3 sm:p-6">
+                <p className="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-4">
                   Cultural Time Perception Shifts drive technological, economic, and social transformation over history.
                 </p>
-                <div className="flex justify-center mt-2">
-                  <div className="w-10 h-10 rounded-full bg-everblue/10 flex items-center justify-center text-everblue">
-                    <BarChart3 size={24} />
+                <div className="flex justify-center mt-1 sm:mt-2">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-everblue/10 flex items-center justify-center text-everblue">
+                    <BarChart3 size={20} className="sm:w-6 sm:h-6" />
                   </div>
                 </div>
               </div>
@@ -79,20 +79,20 @@ export default function CTPSInteractiveDiagram() {
 
             {/* Top card - 1st CTPS */}
             <motion.div
-              className="absolute top-2   -translate-x-1/2 w-[260px] sm:w-[280px] md:w-[300px] bg-white rounded-xl shadow-lg"
+              className="absolute md:top-[30px] top-[180px] -translate-x-1/2 w-[180px] sm:w-[220px] md:w-[230px] bg-white rounded-xl shadow-lg"
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.4 }}
               whileHover={{ y: -5, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
             >
-              <div className="p-6">
-                <h2 className="text-xl font-bold text-gray-800 mb-2">1st CTPS: Calendar</h2>
-                <p className="text-sm text-gray-600 mb-4">
+              <div className="p-3 sm:p-4">
+                <h2 className="text-base sm:text-lg font-bold text-gray-800 mb-1 sm:mb-2">1st CTPS: Calendar</h2>
+                <p className="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-3">
                   Marked humanity's ability to track cycles, organize societies, and cultivate a shared memory.
                 </p>
-                <div className="flex justify-center mt-2">
-                  <div className="w-12 h-12 rounded-full bg-everblue/10 flex items-center justify-center text-everblue">
-                    <Calendar size={24} />
+                <div className="flex justify-center mt-1 sm:mt-2">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-everblue/10 flex items-center justify-center text-everblue">
+                    <Calendar size={20} className="sm:w-5 sm:h-5" />
                   </div>
                 </div>
               </div>
@@ -100,20 +100,20 @@ export default function CTPSInteractiveDiagram() {
 
             {/* Bottom card - 4th CTPS */}
             <motion.div
-              className="absolute bottom-[-20px]  -translate-x-1/2 w-[260px] sm:w-[280px] md:w-[300px] bg-white rounded-xl shadow-lg"
+              className="absolute md:bottom-[-20px] bottom-[180px] -translate-x-1/2 w-[180px] sm:w-[220px] md:w-[230px] bg-white rounded-xl shadow-lg"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.6 }}
               whileHover={{ y: 5, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
             >
-              <div className="p-6">
-                <h2 className="text-xl font-bold text-gray-800 mb-2">4th CTPS: Personal Cognitive Computing</h2>
-                <p className="text-sm text-gray-600 mb-4">
+              <div className="p-3 sm:p-4">
+                <h2 className="text-base sm:text-lg font-bold text-gray-800 mb-1 sm:mb-2">4th CTPS: Personal Cognitive Computing</h2>
+                <p className="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-3">
                   Supports adaptive, IA-enabled time perception, fostering individual mastery and ecological alignment.
                 </p>
-                <div className="flex justify-center mt-2">
-                  <div className="w-12 h-12 rounded-full bg-everblue/10 flex items-center justify-center text-everblue">
-                    <Brain size={24} />
+                <div className="flex justify-center mt-1 sm:mt-2">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-everblue/10 flex items-center justify-center text-everblue">
+                    <Brain size={20} className="sm:w-5 sm:h-5" />
                   </div>
                 </div>
               </div>
@@ -121,35 +121,35 @@ export default function CTPSInteractiveDiagram() {
 
             {/* Left card - 2nd CTPS */}
             <motion.div
-              className="absolute left-[20px] sm:left-[30px] md:left-[80px] -translate-y-1/2 w-[220px] sm:w-[230px] md:w-[250px] bg-white rounded-xl shadow-lg"
+              className="absolute left-[-10px] sm:left-[30px] md:left-[80px] -translate-y-1/2 w-[180px] sm:w-[220px] md:w-[230px] bg-white rounded-xl shadow-lg"
               initial={{ x: -20, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.8 }}
               whileHover={{ x: -5, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
             >
-              <div className="p-6">
-                <div className="w-12 h-12 rounded-full bg-everblue/10 flex items-center justify-center text-everblue mb-3">
-                  <Clock size={24} />
+              <div className="p-3 sm:p-4">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-everblue/10 flex items-center justify-center text-everblue mb-2 sm:mb-3">
+                  <Clock size={20} className="sm:w-5 sm:h-5" />
                 </div>
-                <h2 className="text-xl font-bold text-gray-800 mb-2">2nd CTPS: Pendulum Clock</h2>
-                <p className="text-sm text-gray-600">Symbolized structured time, inspiring inquiry, organization, and knowledge expansion.</p>
+                <h2 className="text-base sm:text-lg font-bold text-gray-800 mb-1 sm:mb-2">2nd CTPS: Pendulum Clock</h2>
+                <p className="text-xs sm:text-sm text-gray-600">Symbolized structured time, inspiring inquiry, organization, and knowledge expansion.</p>
               </div>
             </motion.div>
 
             {/* Right card - 3rd CTPS */}
             <motion.div
-              className="absolute right-[20px] sm:right-[30px] md:right-[80px] -translate-y-1/2 w-[220px] sm:w-[230px] md:w-[250px] bg-white rounded-xl shadow-lg"
+              className="absolute right-[-10px] sm:right-[30px] md:right-[80px] -translate-y-1/2 w-[180px] sm:w-[220px] md:w-[230px] bg-white rounded-xl shadow-lg"
               initial={{ x: 20, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ duration: 0.5, delay: 1 }}
               whileHover={{ x: 5, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
             >
-              <div className="p-6">
-                <div className="w-12 h-12 rounded-full bg-everblue/10 flex items-center justify-center text-everblue mb-3">
-                  <Users size={24} />
+              <div className="p-3 sm:p-4">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-everblue/10 flex items-center justify-center text-everblue mb-2 sm:mb-3">
+                  <Users size={20} className="sm:w-5 sm:h-5" />
                 </div>
-                <h2 className="text-xl font-bold text-gray-800 mb-2">3rd CTPS: Atomic Clock</h2>
-                <p className="text-sm text-gray-600">Introduced precision, driving industrialization and economic growth.</p>
+                <h2 className="text-base sm:text-lg font-bold text-gray-800 mb-1 sm:mb-2">3rd CTPS: Atomic Clock</h2>
+                <p className="text-xs sm:text-sm text-gray-600">Introduced precision, driving industrialization and economic growth.</p>
               </div>
             </motion.div>
 
